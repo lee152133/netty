@@ -20,7 +20,6 @@ import org.junit.Assume;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import static org.junit.Assert.*;

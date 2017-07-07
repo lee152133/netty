@@ -390,12 +390,14 @@ abstract class AbstractUnpooledSlicedByteBuf extends AbstractDerivedByteBuf {
     @Override
     public int setCharSequence(int index, CharSequence sequence, Charset charset) {
         if (charset.equals(CharsetUtil.UTF_8)) {
-            checkIndex0(index, ByteBufUtil.utf8MaxBytes(sequence));
+            // We need to use checkIndex(...) so we also check that the buffer is still accessible
+            checkIndex(index, ByteBufUtil.utf8MaxBytes(sequence));
             return ByteBufUtil.writeUtf8(this, idx(index), sequence, sequence.length());
         }
         if (charset.equals(CharsetUtil.US_ASCII) || charset.equals(CharsetUtil.ISO_8859_1)) {
             int len = sequence.length();
-            checkIndex0(index, len);
+            // We need to use checkIndex(...) so we also check that the buffer is still accessible
+            checkIndex(index, len);
             return ByteBufUtil.writeAscii(this, idx(index), sequence, len);
         }
         byte[] bytes = sequence.toString().getBytes(charset);
