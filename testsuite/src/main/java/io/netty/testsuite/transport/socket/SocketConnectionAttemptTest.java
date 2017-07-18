@@ -23,7 +23,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelOption;
 import io.netty.util.internal.SocketUtils;
-import io.netty.testsuite.util.TestUtils;
 import io.netty.util.NetUtil;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import io.netty.util.concurrent.Promise;
@@ -96,7 +95,7 @@ public class SocketConnectionAttemptTest extends AbstractClientSocketTest {
 
         cb.handler(handler);
         cb.option(ChannelOption.ALLOW_HALF_CLOSURE, halfClosure);
-        ChannelFuture future = cb.connect(NetUtil.LOCALHOST, TestUtils.getFreePort()).awaitUninterruptibly();
+        ChannelFuture future = cb.connect(NetUtil.LOCALHOST, BAD_PORT).awaitUninterruptibly();
         assertThat(future.cause(), is(instanceOf(ConnectException.class)));
         assertThat(errorPromise.cause(), is(nullValue()));
     }
